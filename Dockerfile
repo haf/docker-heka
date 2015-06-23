@@ -4,14 +4,14 @@ ENV BUILD_DEPS \
         cmake python-sphinx protobuf-compiler \
         patch libgeoip-dev debhelper fakeroot
 
-ENV HEKA_VERSION 22f646e7206102225c34effa4c1a96fa7d7efd72
+ENV HEKA_VERSION 1d9379aa0ee33cc9df4df5eb6fea119167702041
 
 # COPY plugin_loader.cmake /tmp/plugin_loader.cmake
 # && mv /tmp/plugin_loader.cmake /usr/src/heka/cmake \
 
 RUN apt-get update \
     && apt-get install -y libgeoip1 $BUILD_DEPS --no-install-recommends \
-    && git clone https://github.com/mattrobenolt/heka /usr/src/heka \
+    && git clone https://github.com/haf/heka /usr/src/heka \
     && cd /usr/src/heka/ && git checkout $HEKA_VERSION \
     && cd /usr/src/heka/ && ./build.sh 2>&1 \
     && mv /usr/src/heka/build/heka/bin/* /usr/local/bin \
